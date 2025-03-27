@@ -1,0 +1,340 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Photography Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;   /* Deep blue */
+            --secondary: #3b82f6; /* Bright blue */
+            --accent: #ef4444;    /* Red */
+            --bg-light: #f3f4f6;
+            --bg-dark: #1f2937;
+            --text-light: #111827;
+            --text-dark: #d1d5db;
+            --card-bg-light: white;
+            --shadow: 0 8px 25px rgba(0,0,0,0.15);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background: var(--gradient);
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #d1d5db !important;
+        }
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent);
+            animation: rotateGlow 15s infinite linear;
+            z-index: 0;
+        }
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hero h1, .hero p {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 20px auto 0;
+        }
+        .about-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--card-bg-light);
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .developer-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        .developer-img:hover {
+            transform: scale(1.1);
+        }
+        .about-section h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+        .about-section p {
+            font-size: 1.2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .card {
+            background: var(--card-bg-light);
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            transition: transform 0.3s, background 0.3s;
+            animation: zoomIn 0.8s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            background: #e8f0fe; /* Light blue hover */
+        }
+        .card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .card p {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .tech-icon, .future-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        .footer {
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .footer p {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #d1d5db;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .about-section h2 {
+                font-size: 2rem;
+            }
+            .card h3 {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.php">Photography Services</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto d-flex">
+                        <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li> <!-- Ensure Correct Path -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>About Photography Services</h1>
+        <p>Capturing your special moments with professional excellence and innovative technology.</p>
+    </section>
+
+    <!-- About Developer Section -->
+    <section class="about-section">
+        <h2>Meet the Photophile</h2>
+        <img src="about.jpg" alt="Developer" class="developer-img">
+        <p class="mt-5">At our <strong>photographic services</strong>, we are passionate about capturing life's most precious moments with creativity, professionalism, and precision. As a professional photography service provider, we specialize in delivering high-quality visual storytelling tailored to meet the unique needs of our clients.</p>
+        <p class="mt-4"><strong>Who We Are</strong></p>
+        <p class="mt-3">With years of experience in the photography industry, we offer a wide range of services, from wedding photography, corporate events, portraits, and product shoots to fashion, travel, and commercial photography. Our skilled team ensures every shot reflects perfection, emotion, and authenticity.</p>
+        <p class="mt-2"><strong>Why Choose Us</strong></p>
+        <p class="mt-1"> Expertise & Creativity – Our photographers are skilled in various styles and techniques to capture stunning visuals, Client-Centric Approach – We prioritize understanding your vision to deliver personalized and meaningful photographs, State-of-the-Art Equipment – We use high-resolution cameras, professional lighting, and top-notch editing tools, Timely Delivery & Quality Assurance – Quick turnaround time without compromising on quality, Flexible Services – Available for local and destination shoots, ensuring convenience and satisfaction.</p>
+    </section>
+
+    <!-- Roles Section -->
+    <div class="container my-5">
+        <h2 class="section-title">Our Ecosystem</h2>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Users</h3>
+                    <p>✔ Browse stunning photographer portfolios and book personalized photoshoots.</p>
+                    <p>✔ Seamlessly manage orders, track delivery, and download high-resolution photos.</p>
+                    <p>✔ Access exclusive features like custom shoot requests and real-time availability.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Photographers</h3>
+                    <p>✔ Showcase your work through customizable portfolios and attract clients.</p>
+                    <p>✔ Accept bookings, manage schedules, and deliver premium photos effortlessly.</p>
+                    <p>✔ Leverage tools for creative editing and client communication.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Admin</h3>
+                    <p>✔ Oversee users, bookings, payments, and platform performance with ease.</p>
+                    <p>✔ Manage content, approve custom requests, and ensure quality control.</p>
+                    <p>✔ Access analytics and insights to optimize services and support.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technologies Section -->
+    <div class="container my-5">
+        <h2 class="section-title">Technologies Powering Us</h2>
+        <div class="row text-center mt-4">
+            <div class="col-md-3">
+                <i class="fas fa-code tech-icon"></i>
+                <p><strong>HTML, CSS, Bootstrap</strong></p>
+                <p>Building responsive, visually appealing interfaces with modern frameworks.</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-server tech-icon"></i>
+                <p><strong>PHP Backend</strong></p>
+                <p>Robust server-side logic for seamless functionality and data handling.</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-database tech-icon"></i>
+                <p><strong>MySQL Database</strong></p>
+                <p>Secure, scalable storage for user data, bookings, and portfolios.</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-lock tech-icon"></i>
+                <p><strong>Secure Authentication</strong></p>
+                <p>Protecting user and admin access with industry-standard security.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Future Enhancements Section -->
+    <div class="container my-5">
+        <h2 class="section-title">Future Vision</h2>
+        <div class="row text-center mt-4">
+            <div class="col-md-4">
+                <i class="fas fa-mobile-alt future-icon"></i>
+                <p><strong>Mobile App Development</strong></p>
+                <p>Extending services to a dedicated mobile app for on-the-go access.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-robot future-icon"></i>
+                <p><strong>AI Photo Enhancements</strong></p>
+                <p>Integrating artificial intelligence for automatic photo editing and enhancement.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-vr-cardboard future-icon"></i>
+                <p><strong>Augmented Reality Features</strong></p>
+                <p>Exploring AR to preview shoots and enhance client experiences.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Photography Services | Capture Your Special Moments with Us</p>
+        <p>Contact: <a href="mailto:support@photographyservices.com">support@photographyservices.com</a> | Follow us on 
+            <a href="#"><i class="fab fa-facebook"></i></a> 
+            <a href="#"><i class="fab fa-twitter"></i></a> 
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
